@@ -1,0 +1,5 @@
+---
+# Variables defined for us-central1-a
+names_zonea: myinstance1,myinstance3
+zonea: us-central1-a
+lb_membersa: us-central1-a/myinstance1,us-central1-a/myinstance3
