@@ -1,0 +1,21 @@
+---
+- name: Create a firewall rule to allow HTTP
+  local_action:
+    module: gce_net
+    fwname: all-http
+    name: default
+    allowed: tcp:80
+    project_id: "{{ pid }}"
+    pem_file: "{{ pem }}"
+    service_account_email: "{{ email }}"
+
+- name: Create the Compute Engine Load-balancer
+  local_action:
+    module: gce_lb
+    name: lb
+    region: "{{ region }}"
+    members: "{{ members }}"
+    project_id: "{{ pid }}"
+    pem_file: "{{ pem }}"
+    service_account_email: "{{ email }}"
+

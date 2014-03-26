@@ -1,8 +1,5 @@
 [local]
 127.0.0.1
 
-[gce]
-myinstance1
-myinstance2
-myinstance3
-myinstance4
+[gce_instances]
+myinstance[1:4]

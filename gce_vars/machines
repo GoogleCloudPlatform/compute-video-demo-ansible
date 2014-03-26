@@ -1,0 +1,4 @@
+---
+# Common Compute Engine instance variables
+machine_type: n1-standard-1
+image: debian-7

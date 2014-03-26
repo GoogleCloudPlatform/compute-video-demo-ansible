@@ -1,0 +1,42 @@
+---
+- name: Create Compute Engine instances
+  local_action:
+    module: gce
+    instance_names: "{{ names_zonea }}"
+    machine_type: "{{ machine_type }}"
+    image: "{{ image }}"
+    zone: "{{ zonea }}"
+    project_id: "{{ pid }}"
+    pem_file: "{{ pem }}"
+    service_account_email: "{{ email }}"
+  register: gcea
+  local_action:
+    module: gce
+    instance_names: "{{ names_zoneb }}"
+    machine_type: "{{ machine_type }}"
+    image: "{{ image }}"
+    zone: "{{ zoneb }}"
+    project_id: "{{ pid }}"
+    pem_file: "{{ pem }}"
+    service_account_email: "{{ email }}"
+  register: gceb
+
+- name: Wait for SSH for instances in first zone
+  local_action: >
+    wait_for
+      host: {{ item.public_ip }}
+      port: 22
+      delay: 3
+      timeout: 60
+      state: started
+  with_items: gcea.instance_data
+
+- name: Wait for SSH for instances in second zone
+  local_action: >
+    wait_for
+      host: {{ item.public_ip }}
+      port: 22
+      delay: 3
+      timeout: 60
+      state: started
+  with_items: gceb.instance_data

@@ -1,0 +1,12 @@
+---
+- name: Install apache on instances
+  apt: pkg=apache2 state=present
+
+- name: Create custom index.html
+  template: src=index.html.j2 dest=/var/www/index.html
+
+- name: set file stats on index.html
+  file: path=/var/www/index.html owner=root group=root mode=0644
+
+- name: Start apache
+  service: name=apache2 state=started

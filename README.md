@@ -16,7 +16,7 @@ repository contains all those necessary details.
 
 1. You will need to create a Google Cloud Platform Project as a first step.
 Make sure you are logged in to your Google Account (gmail, Google+, etc) and
-point your browser to https://cloud.google.com/console.  You should see a
+point your browser to https://console.developers.google.com/.  You should see a
 page asking you to create your first Project.
 
 1. When creating a Project, you will see a pop-up dialog box. You can specify
@@ -41,57 +41,31 @@ will be required in the Ansible configuration files.
 and make sure you've successfully authenticated and set your default project
 as instructed.
 
+1. You will also need to make sure and set up SSH keys that will allow you to
+access your Compute Engine instances. You can either
+[manually generate the keys](https://developers.google.com/compute/docs/console#sshkeys)
+or you can use `gcutil ssh` to access an existing Compute Engine instance
+and it will handle generating the keys and uploading them to the metadata
+server. For the sake of this demo, it is assumed you have opted to use
+`gcutil ssh` and your default private key is `$HOME/.ssh/google_compute_engine`.
+
 ## Software
 
-1. Install Ansible, running from source
-    ```
-    gcutil ssh
-    sudo -i
-    ```
+1. Install Ansible with the
+[running from source instructions](http://docs.ansible.com/intro_installation.html#running-from-source).
 
-1. Update packages and install dependencies
-    ```
-    apt-get update
-    apt-get install python-pip git -y
-    ```
 
-1. Install libcloud (v0.14.1 or greater)
+1. Install libcloud (v0.14.1 or greater). Note, you may need to ensure you
+have Python development packages installed. On Debian-7 for instance, you will
+want to first install both the `build-essential` and `python-dev` packages.
     ```
     pip install apache-libcloud
     ```
-
-1. Create a Compute Engine SSH key and upload it to the metadata server.
+1. For the purposes of the demo, you can set a couple of environment variables
+to simplify your commands and SSH interactions.
     ```
-    $ gcutil ssh --ssh_key_push_wait_time=30 ...
-    Service account scopes are not enabled for default on this instance. Using manual authentication.
-    Go to the following link in your browser:
-
-        https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcompute+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdevstorage.full_control+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&client_id=1111111111111.apps.googleusercontent.com&access_type=offline
-
-    Enter verification code: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    Authentication successful.
-    INFO: Zone for foo detected as us-central1-b.
-    WARNING: You don't have an ssh key for Google Compute Engine. Creating one now...
-    Enter passphrase (empty for no passphrase): 
-    Enter same passphrase again: 
-    INFO: Updated project with new ssh key. It can take several minutes for the instance to pick up the key.
-    INFO: Waiting 30 seconds before attempting to connect.
-    INFO: Running command line: ssh -o UserKnownHostsFile=/dev/null -o CheckHostIP=no -o StrictHostKeyChecking=no -i /root/.ssh/google_compute_engine -A -p 22 root@123.45.67.89 --
-    Warning: Permanently added '123.45.67.89' (ECDSA) to the list of known hosts.
-    Linux foo 3.2.0-4-amd64 #1 SMP Debian 3.2.51-1 x86_64
-
-    The programs included with the Debian GNU/Linux system are free software;
-    the exact distribution terms for each program are described in the
-    individual files in /usr/share/doc/*/copyright.
-
-    Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-    permitted by applicable law.
-    root@foo:~# exit
-    logout
-    Connection to 123.48.67.89 closed.
-    WARNING: There is a new version of gcutil available. Go to: https://developers.google.com/compute/docs/gcutil
-    WARNING: Your version of gcutil is 1.12.0, the latest version is 1.13.0.
-    root@foo:~# 
+    export ANSIBLE_HOSTS=ansible_hosts
+    export ANSIBLE_HOST_KEY_CHECKING=False
     ```
 
 ## Ansible demo setup
@@ -110,11 +84,16 @@ utility,
     openssl pkcs12 -in /path/to/original/key.p12 -passin pass:notasecret -nodes -nocerts | openssl rsa -out /path/to/pkey.pem
     ```
 
-1. Edit the `group_vars/auth` file and specify set your Project ID in the
-`project` parameter and also set your `service_account_email_address`. Note
-that if you used an alternate location for your converted Service Account key,
-make sure to also adjust the `service_account_private_key` variable.
-
+1. Edit the `group_vars/auth` file and specify your Project ID in the
+`pid` variable, Service Account email address in the `email` variable,
+and the location of your converted private key in the `pem` variable.
+    ```
+    ---
+    # Google Compute Engine required authentication global variables
+    pid: YOUR_PROJECT_ID
+    email: YOUR_SERVICE_ACCOUNT_EMAIL
+    pem: /path/to/your/pkey.pem
+    ```
 
 # Demo time!
 
