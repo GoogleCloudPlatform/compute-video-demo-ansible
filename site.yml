@@ -1,23 +1,5 @@
 ---
 # compute-video-demo-ansible
-- name: Create Compute Engine instances
-  hosts: local
-  gather_facts: False
-  vars_files:
-    - gce_vars/auth
-    - gce_vars/machines
-    - gce_vars/zonea
-    - gce_vars/zoneb
-  roles:
-    - gce-instances
-
-- name: Deploy Apache and custom html page
-  hosts: gce_instances
-  roles:
-    - simple-web
-
-- name: Set up Compute Engine networking resources
-  hosts: local
-  gather_facts: False
-  roles:
-    - gce-network
+- include: gce-instances.yml
+- include: web.yml
+- include: gce-network.yml
