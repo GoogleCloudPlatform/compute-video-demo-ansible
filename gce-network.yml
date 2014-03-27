@@ -1,0 +1,26 @@
+---
+# compute-video-demo-ansible
+- name: Set up networking
+  hosts: local
+  gather_facts: False
+  vars_files:
+    - gce_vars/auth
+    - gce_vars/lb
+  tasks:
+    - name: Allow HTTP traffic
+      gce_net:
+        fwname: all-http
+        name: default
+        allowed: tcp:80
+        project_id: "{{ pid }}"
+        pem_file: "{{ pem }}"
+        service_account_email: "{{ email }}"
+    - name: Create the load-balancer and add members
+      gce_lb:
+        name: lb
+        region: "{{ region }}"
+        members: "{{ members }}"
+        project_id: "{{ pid }}"
+        pem_file: "{{ pem }}"
+        service_account_email: "{{ email }}"
+

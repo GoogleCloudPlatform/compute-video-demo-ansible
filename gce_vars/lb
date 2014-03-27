@@ -1,0 +1,4 @@
+---
+# Variables defined for load-balancer
+region: us-central1
+members: us-central1-a/myinstance1,us-central1-a/myinstance3,us-central1-b/myinstance2,us-central1-b/myinstance4
