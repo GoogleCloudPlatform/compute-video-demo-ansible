@@ -1,5 +1,0 @@
----
-# Google Compute Engine required authentication global variables
-pid: YOUR_PROJECT_ID
-email: YOUR_SERVICE_ACCOUNT_EMAIL
-pem: /path/to/your/pkey.pem

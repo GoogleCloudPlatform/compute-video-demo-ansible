@@ -1,5 +1,0 @@
-[local]
-127.0.0.1
-
-[gce_instances]
-myinstance[1:4]

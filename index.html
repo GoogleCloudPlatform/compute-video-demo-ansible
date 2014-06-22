@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>DevOps::Ansible</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Web Starter Kit">
+
+    <!-- iOS icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/touch/apple-touch-icon-144x144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/touch/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/touch/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/touch/apple-touch-icon-57x57-precomposed.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <!-- Generic Icon -->
+    <link rel="shortcut icon" href="images/touch/touch-icon-57x57.png">
+
+    <!-- SEO: If mobile URL is different from desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <!-- Chrome Add to Homescreen -->
+    <link rel="shortcut icon" sizes="196x196" href="images/touch/touch-icon-196x196.png">
+
+    <!-- build:css styles/components/main.min.css -->
+    <link rel="stylesheet" href="styles/h5bp.css">
+    <link rel="stylesheet" href="styles/components/components.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body>
+    <header class="app-bar promote-layer">
+      <div class="app-bar-container">
+        <button class="menu"><img src="images/hamburger.svg" alt="menu"></button>
+        <div class="g-medium-full">
+          <p class="logo">
+            <img height="60" style="max-width:auto;" src="images/gcp.png" />
+            DevOps::Ansible
+          </p>
+        </div>
+        <section class="app-bar-actions">
+        <!-- Put App Bar Buttons Here -->
+        </section>
+      </div>
+    </header>
+
+    <nav class="navdrawer-container promote-layer">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="http://googlecloudplatform.github.io/compute-video-demo-main/">DevOps Power Tools</a></li>
+        <li><a href="http://googlecloudplatform.github.io/compute-video-demo-puppet/">Puppet</a></li>
+        <li><a href="http://googlecloudplatform.github.io/compute-video-demo-chef/">Chef</a></li>
+        <li><a href="http://googlecloudplatform.github.io/compute-video-demo-salt/">SaltStack</a></li>
+        <li><a href="http://googlecloudplatform.github.io/compute-video-demo-ansible/">Ansible</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <br />
+      <div class="g-wide--1 g-medium--half">
+        <img height="100" style="max-width:auto;" src="images/ansible.jpg" />
+        <ul class="list-links list-links--primary">
+          <li class="list__item"><a href="http://docs.ansible.com/">Documentation</a>
+          <li class="list__item"><a href="http://www.ansible.com/tower">Ansible Tower</a>
+        </ul>
+        <h3>Google+Ansible</h3>
+        <ul class="list-links list-links--primary">
+          <li class="list__item"><a href="http://docs.ansible.com/gce_module.html">gce module(*)</a>
+          <li class="list__item"><a href="http://docs.ansible.com/guide_gce.html">GCE Guide</a>
+        </ul>
+        <h3>Demos</h3>
+        <ul class="list-links list-links--primary">
+          <li class="list__item"><a href="https://github.com/GoogleCloudPlatform/compute-video-demo-ansible">Demo Code</a>
+        </ul>
+        <br />
+      </div>
+      <div class="g-wide--3 g-wide--last g-medium--half g--last">
+        <p class="medium">Demo: Ansible and Google Compute Engine</p>
+        <script type="text/javascript" src="https://asciinema.org/a/5996.js" id="asciicast-5996" async data-autoplay="1"></script>
+      </div>
+
+      <div class="g-medium--full g-wide--full">
+        (*) See other modules such as gce_pd, gce_net, gce_lb, gc_storage, gc_dns
+        <hr />
+      </div>
+
+      <div class="g-medium--full g-wide--full">
+        <h3>Example: Install Apache</h3>
+        <div class="highlight-module highlight-module--code highlight-module--right">
+          <div class="highlight-module__container">
+            <code class="ruby">
+              <div class="highlight">
+                <pre>
+ 1 - name: Set up webservers
+ 2   hosts: web
+ 3   sudo: yes
+ 4   tasks:
+ 5   - name: Install Apache
+ 6     action: apt pkg=apache state=present
+ 7   - name: Lay down custom index.html
+ 8     copy: dest=/var/www/index.html content='Hello, World' 
+ 9   - name: Start Apache
+10     service: name=apache state=started
+                </pre>
+              </div>
+            </code>
+          </div>
+        </div>
+      </div>
+
+      <div class="g-medium--full g-wide--full">
+        <hr />
+      </div>
+      
+      <div class="g-medium--full g-wide--full">
+        <h3>Example: Create a Compute Engine instance</h3>
+        <div class="highlight-module highlight-module--code highlight-module--right">
+          <div class="highlight-module__container">
+            <code class="ruby">
+              <div class="highlight">
+                <pre>
+  1  - name: Compute Engine demo
+  2    hosts: local
+  3    gather_facts: False
+  4    vars:
+  5      pid: graphite-demos
+  6      email: 1234567890-xxxxxxxxxxxxx@developer.gserviceaccount.com
+  7      pem: /etc/ansible/pkey.pem
+  8    tasks:
+  9      - name: Create instance
+ 10        gce:
+ 11          instance_names: demo1,demo2
+ 12          zone: us-central1-b
+ 13          machine_type: n1-standard-1
+ 14          image: debian-7-wheezy
+ 15          project_id: "{{ pid }}"
+ 16          pem_file: "{{ pem }}"
+ 17          service_account_email: "{{ email }}"
+                </pre>
+              </div>
+            </code>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- build:js scripts/main.min.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+
+  </body>
+</html>
