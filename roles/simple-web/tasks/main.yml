@@ -1,4 +1,7 @@
 ---
+- name: Run apt-get update
+  command: apt-get update
+
 - name: Install python-apt via command module
   command: apt-get install python-apt -y
 
