@@ -1,8 +1,8 @@
 ## compute-video-demo-ansible
 
-This is the supporting documentation for **Using Ansible with Google
-Compute Engine**, one of the topics covered in the
-*video-shorts series* [TODO: link].
+This is the supporting documentation for
+<a href='https://www.youtube.com/watch?v=FF-HfP_OHpU'>Using Ansible with Google</a>
+video.
 
 The goal of this repository is to provide the extra detail necessary for
 you to completely replicate the recorded demo. The video's main goal
@@ -31,11 +31,11 @@ before you can create any virtual machines with Compute Engine. Look for the
 [Service Account](https://developers.google.com/console/help/#service_accounts)
 created for the appropriate authorization. Navigate to
 *APIs &amp; auth -&gt; Credentials* and then *Create New Client ID*. Make sure
-to select *Service Account*. Google will generate a new private key and prompt
-you to save the file and let you know that it was created with the *notasecret*
-passphrase. Once you save the key file, make sure to record the
-*Email address* that ends with `@developer.gserviceaccount.com` since this
-will be required in the Ansible configuration files.
+to select *Service Account*, or generate a new one. Download the *P12 private
+key* save the file (the passphrase is *notasecret*). Once you save the key
+file, make sure to record the *Email address* that ends with
+`@developer.gserviceaccount.com` since this will be required in the Ansible
+configuration files.
 
 1. Next you will want to install the [Cloud SDK](https://developers.google.com/cloud/sdk/)
 and make sure you've successfully authenticated and set your default project
