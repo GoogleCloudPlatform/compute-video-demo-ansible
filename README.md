@@ -84,7 +84,7 @@ utility,
     openssl pkcs12 -in /path/to/original/key.p12 -passin pass:notasecret -nodes -nocerts | openssl rsa -out /path/to/pkey.pem
     ```
 
-1. Edit the `group_vars/auth` file and specify your Project ID in the
+1. Edit the `gce_vars/auth` file and specify your Project ID in the
 `pid` variable, Service Account email address in the `email` variable,
 and the location of your converted private key in the `pem` variable.
     ```
