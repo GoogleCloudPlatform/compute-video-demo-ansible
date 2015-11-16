@@ -2,6 +2,7 @@
 # compute-video-demo-ansible
 - name: Set up networking
   hosts: local
+  connection: local
   gather_facts: False
   vars_files:
     - gce_vars/auth
