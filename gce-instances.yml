@@ -2,6 +2,7 @@
 # compute-video-demo-ansible
 - name: Create Compute Engine instances
   hosts: local
+  connection: local
   gather_facts: False
   vars_files:
     - gce_vars/auth
