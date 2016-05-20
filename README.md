@@ -59,7 +59,7 @@ server. For this demo, it is assumed you have opted to use
 
 1. Install libcloud.
     ```
-    pip install apache-libcloud==0.20.1
+    sudo pip install apache-libcloud==0.20.1
     ```
 1. For the purposes of the demo, you can set a couple of environment variables
 to simplify your commands and SSH interactions.
@@ -79,7 +79,7 @@ and demo files.
 
 1. Edit the `gce_vars/auth` file and specify your Project ID in the
 `project_id` variable, Service Account email address in the `service_account_email` variable,
-and the location of your converted private key in the `credentials_file` variable.
+and the location of your JSON key (downloaded earlier) in the `credentials_file` variable.
     ```
     ---
     # Google Compute Engine required authentication global variables
@@ -117,7 +117,7 @@ instances.
 
     For the demo, a javascript function is set to fire when the page loads
 that pauses for a half-second, and then reloads itself. Since we installed
-a modified Apache configuraiton file to disable client-side caching *and* we
+a modified Apache configuration file to disable client-side caching *and* we
 enabled Apache's `mod_headers`, each "reload" results in a new HTTP request
 to the page. This is just a fancy hands-free way of asking you to do a
 "hard refresh" of the load-balancer IP address in order to see the cycling
