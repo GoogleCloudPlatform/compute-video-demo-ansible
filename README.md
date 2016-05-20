@@ -40,11 +40,12 @@ successfully authenticated and set your default project as instructed.
 
 1. You will also need to make sure and set up SSH keys that will allow you to
 access your Compute Engine instances. You can either
-[manually generate the keys](https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys#createsshkeys)
-or you can use `gcutil ssh` to access an existing Compute Engine instance
+[manually generate the keys](https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys#createsshkeys) and
+paste the public key into the [metadata server](https://console.cloud.google.com/compute/metadata/sshKeys)
+or you can use `gcloud compute ssh` to access an existing Compute Engine instance
 and it will handle generating the keys and uploading them to the metadata
-server. For the sake of this demo, it is assumed you have opted to use
-`gcutil ssh` and your default private key is `$HOME/.ssh/google_compute_engine`.
+server. For this demo, it is assumed you have opted to use
+`gcloud compute ssh` and your private key is located at `$HOME/.ssh/google_compute_engine`.
 
 ## Software
 
