@@ -14,36 +14,36 @@
       gce:
         instance_names: "{{ names_zonea }}"
         zone: "{{ zonea }}"
-        project_id: "{{ pid }}"
-        pem_file: "{{ pem }}"
-        service_account_email: "{{ email }}"
+        project_id: "{{ project_id }}"
+        credentials_file: "{{ credentials_file }}"
+        service_account_email: "{{ service_account_email }}"
         state: absent
     - name: Destroy the instances in the second zone
       gce:
         instance_names: "{{ names_zoneb }}"
         zone: "{{ zoneb }}"
-        project_id: "{{ pid }}"
-        pem_file: "{{ pem }}"
-        service_account_email: "{{ email }}"
+        project_id: "{{ project_id }}"
+        credentials_file: "{{ credentials_file }}"
+        service_account_email: "{{ service_account_email }}"
         state: absent
     - name: Destroy the firewall rule
       gce_net:
         fwname: all-http
-        project_id: "{{ pid }}"
-        pem_file: "{{ pem }}"
-        service_account_email: "{{ email }}"
+        project_id: "{{ project_id }}"
+        credentials_file: "{{ credentials_file }}"
+        service_account_email: "{{ service_account_email }}"
         state: absent
     - name: Destroy the load-balancer
       gce_lb:
         name: lb
         region: "{{ region }}"
-        project_id: "{{ pid }}"
-        pem_file: "{{ pem }}"
-        service_account_email: "{{ email }}"
+        project_id: "{{ project_id }}"
+        credentials_file: "{{ credentials_file }}"
+        service_account_email: "{{ service_account_email }}"
         state: absent
     - name: Make sure the persistent disks are destroyed
       gce_pd: name={{ item.name }} zone={{ item.zone }} state=absent
-              project_id={{ pid }} pem_file={{ pem }} service_account_email={{ email }}
+              project_id={{ project_id }} credentials_file={{ credentials_file }} service_account_email={{ service_account_email }}
       with_items:
         - { name: "myinstance1", zone: "us-central1-a" }
         - { name: "myinstance3", zone: "us-central1-a" }

@@ -1,5 +1,6 @@
 ---
 # Google Compute Engine required authentication global variables
-pid: YOUR_PROJECT_ID
-email: YOUR_SERVICE_ACCOUNT_EMAIL
-pem: /path/to/your/pkey.pem
+# (replace 'YOUR_PROJECT_ID' with the ID you created for your GCP project)
+project_id: YOUR_PROJECT_ID
+service_account_email: demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com
+credentials_file: ~/demo-ansible.json

@@ -12,15 +12,15 @@
         fwname: all-http
         name: default
         allowed: tcp:80
-        project_id: "{{ pid }}"
-        pem_file: "{{ pem }}"
-        service_account_email: "{{ email }}"
+        project_id: "{{ project_id }}"
+        credentials_file: "{{ credentials_file }}"
+        service_account_email: "{{ service_account_email }}"
     - name: Create the load-balancer and add members
       gce_lb:
         name: lb
         region: "{{ region }}"
         members: "{{ members }}"
-        project_id: "{{ pid }}"
-        pem_file: "{{ pem }}"
-        service_account_email: "{{ email }}"
+        project_id: "{{ project_id }}"
+        credentials_file: "{{ credentials_file }}"
+        service_account_email: "{{ service_account_email }}"
 
