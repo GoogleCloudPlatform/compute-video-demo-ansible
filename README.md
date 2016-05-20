@@ -49,15 +49,17 @@ server. For this demo, it is assumed you have opted to use
 
 ## Software
 
+1. Install Dependencies.  On Debian-7, you may run the following to install them:
+   ```
+   sudo apt-get install -y build-essential git python-dev python-pip
+   ```
 1. Install Ansible with the
 [running from source instructions](http://docs.ansible.com/intro_installation.html#running-from-source).
 
 
-1. Install libcloud (v0.14.1 or greater). Note, you may need to ensure you
-have Python development packages installed. On Debian-7 for instance, you will
-want to first install both the `build-essential` and `python-dev` packages.
+1. Install libcloud.
     ```
-    pip install apache-libcloud
+    pip install apache-libcloud==0.20.1
     ```
 1. For the purposes of the demo, you can set a couple of environment variables
 to simplify your commands and SSH interactions.
@@ -81,7 +83,7 @@ and the location of your converted private key in the `credentials_file` variabl
     ```
     ---
     # Google Compute Engine required authentication global variables
-    # (replace 'YOUR_PROJECT_ID' with the ID you created for your GCP project)
+    # (Replace 'YOUR_PROJECT_ID' with the Project ID used in creating your GCP project.)
     project_id: YOUR_PROJECT_ID
     service_account_email: demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com
     credentials_file: ~/demo-ansible.json
