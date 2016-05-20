@@ -75,13 +75,6 @@ and demo files.
     git clone https://github.com/GoogleCloudPlatform/compute-video-demo-ansible
     ```
 
-1. You will need to convert the Service Account private key file from the
-PKCS12 format to the RSA/PEM file format.  You can do that with the `openssl`
-utility,
-    ```
-    openssl pkcs12 -in /path/to/original/key.p12 -passin pass:notasecret -nodes -nocerts | openssl rsa -out /path/to/pkey.pem
-    ```
-
 1. Edit the `gce_vars/auth` file and specify your Project ID in the
 `project_id` variable, Service Account email address in the `service_account_email` variable,
 and the location of your converted private key in the `credentials_file` variable.
