@@ -16,7 +16,7 @@ repository contains all those necessary details.
 
 1. You will need to create a Google Cloud Platform Project as a first step.
 Make sure you are logged in to your Google Account (gmail, Google+, etc) and
-point your browser to https://console.developers.google.com/.  You should see a
+point your browser to https://console.cloud.google.com/projectselector/compute/instances. You should see a
 page asking you to create your first Project.
 
 1. When creating a Project, you will see a pop-up dialog box. You can specify
@@ -24,26 +24,23 @@ custom names but the *Project ID* is globally unique across all Google Cloud
 Platform customers.
 
 1. It's OK to create a Project first, but you will need to set up billing
-before you can create any virtual machines with Compute Engine. Look for the
-*Billing* link in the left-hand navigation bar.
+before you can create any virtual machines with Compute Engine. Find the menu icon at the top left, 
+then look for the *Billing* link in the navigation bar.
 
 1. In order for `ansible` to create Compute Engine instances, you'll need a
-[Service Account](https://developers.google.com/console/help/#service_accounts)
-created for the appropriate authorization. Navigate to
-*APIs &amp; auth -&gt; Credentials* and then *Create New Client ID*. Make sure
-to select *Service Account*, or generate a new one. Download the *P12 private
-key* save the file (the passphrase is *notasecret*). Once you save the key
-file, make sure to record the *Email address* that ends with
-`@developer.gserviceaccount.com` since this will be required in the Ansible
-configuration files.
+[Service Account](https://cloud.google.com/compute/docs/access/service-accounts#serviceaccount). 
+It's recommended that you create a new Service Account (don't use the default), called 'demo-ansible', for this demo.
+Make sure to create a new JSON formatted private key file for this Service Account. Also, note the *Email address* 
+of this Service Account (should be `demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com`) since 
+this will be required in the Ansible configuration files.
 
-1. Next you will want to install the [Cloud SDK](https://developers.google.com/cloud/sdk/)
-and make sure you've successfully authenticated and set your default project
-as instructed.
+1. Next you will want to install the
+[Cloud SDK](https://cloud.google.com/sdk/) and make sure you've
+successfully authenticated and set your default project as instructed.
 
 1. You will also need to make sure and set up SSH keys that will allow you to
 access your Compute Engine instances. You can either
-[manually generate the keys](https://developers.google.com/compute/docs/console#sshkeys)
+[manually generate the keys](https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys#createsshkeys)
 or you can use `gcutil ssh` to access an existing Compute Engine instance
 and it will handle generating the keys and uploading them to the metadata
 server. For the sake of this demo, it is assumed you have opted to use
