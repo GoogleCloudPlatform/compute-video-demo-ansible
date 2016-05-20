@@ -1,0 +1,7 @@
+# group_vars/all
+# --------------------
+#
+# Variables to be set for dynamic hosts.
+---
+ansible_ssh_user: ansible-user
+ansible_ssh_private_key_file: /home/ansible-user/.ssh/google_compute_engine
