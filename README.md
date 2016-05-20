@@ -146,8 +146,8 @@ ansible-playbook ... clean-up.yml
 
 ## Troubleshooting
 
-* Make sure you have the latest libcloud (the `pip` install is probably best)
-  installed.
+* Make sure your GCP Project Name is set.  To set it, go to API Manager &gt; Credentials &gt; OAuth consent screen.
+
 
 ## Contributing
 
