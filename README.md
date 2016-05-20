@@ -84,15 +84,16 @@ utility,
     openssl pkcs12 -in /path/to/original/key.p12 -passin pass:notasecret -nodes -nocerts | openssl rsa -out /path/to/pkey.pem
     ```
 
-1. Edit the `group_vars/auth` file and specify your Project ID in the
-`pid` variable, Service Account email address in the `email` variable,
-and the location of your converted private key in the `pem` variable.
+1. Edit the `gce_vars/auth` file and specify your Project ID in the
+`project_id` variable, Service Account email address in the `service_account_email` variable,
+and the location of your converted private key in the `credentials_file` variable.
     ```
     ---
     # Google Compute Engine required authentication global variables
-    pid: YOUR_PROJECT_ID
-    email: YOUR_SERVICE_ACCOUNT_EMAIL
-    pem: /path/to/your/pkey.pem
+    # (replace 'YOUR_PROJECT_ID' with the ID you created for your GCP project)
+    project_id: YOUR_PROJECT_ID
+    service_account_email: demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com
+    credentials_file: ~/demo-ansible.json
     ```
 
 # Demo time!
