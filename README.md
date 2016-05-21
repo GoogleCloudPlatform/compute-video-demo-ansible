@@ -50,12 +50,11 @@ server. For this demo, it is assumed you have opted to use
 ## Software
 
 1. Install Dependencies.  On Debian-7, you may run the following to install them:
-   ```
-   sudo apt-get install -y build-essential git python-dev python-pip
-   ```
+    ```
+    sudo apt-get install -y build-essential git python-dev python-pip
+    ```
 1. Install Ansible with the
 [running from source instructions](http://docs.ansible.com/intro_installation.html#running-from-source).
-
 
 1. Install libcloud.
     ```
@@ -86,7 +85,7 @@ and the location of your JSON key (downloaded earlier) in the `credentials_file`
     # (Replace 'YOUR_PROJECT_ID' with the Project ID used in creating your GCP project.)
     project_id: YOUR_PROJECT_ID
     service_account_email: demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com
-    credentials_file: ~/demo-ansible.json
+    credentials_file: /home/ansible-user/demo-ansible.json
     ```
 
 # Demo time!
