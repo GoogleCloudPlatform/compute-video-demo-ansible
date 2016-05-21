@@ -49,7 +49,8 @@ server. For this demo, it is assumed you have opted to use
 
 ## Software
 
-1. Install Dependencies.  On Debian-7, you may run the following to install them:
+1. Install Dependencies.  On Debian-7, you may run the following to install them.
+
     ```
     sudo apt-get install -y build-essential git python-dev python-pip
     ```
@@ -62,6 +63,7 @@ server. For this demo, it is assumed you have opted to use
     ```
 1. For the purposes of the demo, you can set a couple of environment variables
 to simplify your commands and SSH interactions.
+
     ```
     export ANSIBLE_HOSTS=ansible_hosts
     export ANSIBLE_HOST_KEY_CHECKING=False
