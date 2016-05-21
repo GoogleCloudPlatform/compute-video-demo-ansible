@@ -104,12 +104,13 @@ should take roughly 2 minutes to create the new Compute Engine
 instances
 
 ```
-ansible-playbook ...
+ansible-playbook site.yml
 ```
 
 1. The output from this command will display the public IP address associated
 with your new load-balancer. You can also look in the Developers Console
-under the Load-Balancer section and look at your Forwarding Rules.
+under *Networking &gt; Load balancing* and find the Forwarding Rules under the 
+"Advanced" menu.
 
 1. Ok, let's test it out! Put the public IP address of your load-balancer into
 your browser and take a look at the result. Within a few seconds you should
@@ -128,7 +129,7 @@ between instances.
 
 That's it for the demo. There is a lot of other functionality for
 Compute Engine in Ansible. Please take a look at the `gce*`
-[modules](http://docs.ansible.com/list_of_cloud_modules.html) for a full set
+[modules](http://docs.ansible.com/ansible/list_of_cloud_modules.html#google) for a full set
 of modules and instructions.
 
 ## Cleaning up
@@ -142,12 +143,12 @@ demo Compute Engine resources. The following command can be used to destroy
 all of the resources created for this demo.
 
 ```
-ansible-playbook ... clean-up.yml
+ansible-playbook clean-up.yml
 ```
 
 ## Troubleshooting
 
-* Make sure your GCP Project Name is set.  To set it, go to API Manager &gt; Credentials &gt; OAuth consent screen.
+* Make sure your GCP Project Name is set.  To set it, go to *API Manager &gt; Credentials &gt; OAuth consent screen*.
 
 
 ## Contributing
