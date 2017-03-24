@@ -54,8 +54,10 @@ or you can use `gcloud compute ssh` to access an existing Compute Engine instanc
 and it will handle generating the keys and uploading them to the metadata
 server. For this demo, it is assumed you have opted to use
 `gcloud compute ssh` and your private key is located at `$HOME/.ssh/google_compute_engine`.
-
- Example: $ gcloud compute ssh INSTANCE NAME
+```
+ Example of ssh via gcloud shell: $ gcloud compute ssh INSTANCE NAME
+```
+Refer to: `https://cloud.google.com/sdk/gcloud/#what_is_gcloud` for gcloud overview.
 
 ## Software
 
