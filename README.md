@@ -37,15 +37,15 @@ It's recommended that you create a new Service Account (don't use the default), 
 Make sure to create a new JSON formatted private key file for this Service Account. Also, note the *Email address* 
 of this Service Account (should be `demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com`) since 
 this will be required in the Ansible configuration files.
-
-    Example creating instance and setting scopes/iam roles using cloud shell:
+```
+Example creating instance and setting scopes/iam roles using cloud shell:
     
     $ gcloud compute instances create INSTANCE NAME --scopes demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com=cloud-platform
     
     $ gcloud projects add-iam-policy-binding SERVICE ACCOUNT --member serviceAccount:demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com --role roles/iam.serviceAccountActor
     
     $ gcloud projects add-iam-policy-binding SERVICE ACCOUNT --member serviceAccount:demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com --role roles/compute.instanceAdmin.v1
-    
+```
 1. You will also need to make sure and set up SSH keys that will allow you to
 access your Compute Engine instances. You can either
 [manually generate the keys](https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys#createsshkeys) and
