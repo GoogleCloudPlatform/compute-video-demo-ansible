@@ -1,5 +1,6 @@
 ---
 # Variables defined for us-central1-a
-names_zonea: myinstance1,myinstance3
+name_zonea: myinstance1
 zonea: us-central1-a
+regiona: us-central1
 lb_membersa: us-central1-a/myinstance1,us-central1-a/myinstance3

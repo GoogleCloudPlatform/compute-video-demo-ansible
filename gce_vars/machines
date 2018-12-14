@@ -1,4 +1,4 @@
 ---
 # Common Compute Engine instance variables
 machine_type: n1-standard-1
-image: debian-7
+image: https://www.googleapis.com/compute/v1/projects/eip-images/global/images/debian-9-drawfork-v20181101
