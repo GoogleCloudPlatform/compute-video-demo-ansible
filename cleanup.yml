@@ -7,45 +7,49 @@
     - gce_vars/auth
     - gce_vars/machines
     - gce_vars/zonea
-    - gce_vars/zoneb
-    - gce_vars/lb
   tasks:
-    - name: Destroy the instances in the first zone
-      gce:
-        instance_names: "{{ names_zonea }}"
-        zone: "{{ zonea }}"
-        project_id: "{{ project_id }}"
-        credentials_file: "{{ credentials_file }}"
-        service_account_email: "{{ service_account_email }}"
-        state: absent
-    - name: Destroy the instances in the second zone
-      gce:
-        instance_names: "{{ names_zoneb }}"
-        zone: "{{ zoneb }}"
-        project_id: "{{ project_id }}"
-        credentials_file: "{{ credentials_file }}"
-        service_account_email: "{{ service_account_email }}"
-        state: absent
-    - name: Destroy the firewall rule
-      gce_net:
-        fwname: all-http
-        project_id: "{{ project_id }}"
-        credentials_file: "{{ credentials_file }}"
-        service_account_email: "{{ service_account_email }}"
-        state: absent
-    - name: Destroy the load-balancer
-      gce_lb:
-        name: lb
-        region: "{{ region }}"
-        project_id: "{{ project_id }}"
-        credentials_file: "{{ credentials_file }}"
-        service_account_email: "{{ service_account_email }}"
-        state: absent
-    - name: Make sure the persistent disks are destroyed
-      gce_pd: name={{ item.name }} zone={{ item.zone }} state=absent
-              project_id={{ project_id }} credentials_file={{ credentials_file }} service_account_email={{ service_account_email }}
-      with_items:
-        - { name: "myinstance1", zone: "us-central1-a" }
-        - { name: "myinstance3", zone: "us-central1-a" }
-        - { name: "myinstance2", zone: "us-central1-b" }
-        - { name: "myinstance4", zone: "us-central1-b" }
+    - name: destroy the global forwarding rule
+      gcp_compute_global_forwarding_rule:
+          name: "globalfowardingrule"
+          project: "{{ project }}"
+          auth_kind: "{{ auth_kind }}"
+          service_account_file: "{{ credentials_file }}"
+          state: absent
+    - name: destroy the target http proxy
+      gcp_compute_target_http_proxy:
+          name: "targethttpproxy-globalforwardingrule"
+          url_map: ''
+          project: "{{ project }}"
+          auth_kind: "{{ auth_kind }}"
+          service_account_file: "{{ credentials_file }}"
+          state: absent
+    - name: destroy the url map
+      gcp_compute_url_map:
+          name: "urlmap-globalforwardingrule"
+          default_service: ''
+          project: "{{ project }}"
+          auth_kind: "{{ auth_kind }}"
+          service_account_file: "{{ credentials_file }}"
+          state: absent
+    - name: destroy the url map
+      gcp_compute_backend_service:
+          name: "backendservice-globalforwardingrule"
+          project: "{{ project }}"
+          auth_kind: "{{ auth_kind }}"
+          service_account_file: "{{ credentials_file }}"
+          state: absent
+    - name: destroy the health check
+      gcp_compute_http_health_check:
+          name: "httphealthcheck-globalforwardingrule"
+          project: "{{ project }}"
+          auth_kind: "{{ auth_kind }}"
+          service_account_file: "{{ credentials_file }}"
+          state: absent
+    - name: destroy the instance group
+      gcp_compute_instance_group:
+          name: "instancegroup-globalforwardingrule"
+          zone: "{{zone}}"
+          project: "{{ project }}"
+          auth_kind: "{{ auth_kind }}"
+          service_account_file: "{{ credentials_file }}"
+          state: absent

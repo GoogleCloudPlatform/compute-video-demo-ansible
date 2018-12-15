@@ -1,5 +1,5 @@
 [local]
-127.0.0.1
+localhost ansible_connection=local ansible_python_interpreter=/usr/local/bin/python
 
 [gce_instances]
 myinstance[1:4]

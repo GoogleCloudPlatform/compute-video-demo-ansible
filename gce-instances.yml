@@ -7,12 +7,11 @@
     - gce_vars/auth
     - gce_vars/machines
     - gce_vars/zonea
-    - gce_vars/zoneb
   tasks:
     - name: Create an IP address for first instance
       gcp_compute_address:
         name: "{{ name_zonea }}-ip"
-        region: "{{ regiona }}"
+        region: "{{ region }}"
         project: "{{ project }}"
         service_account_file: "{{ credentials_file }}"
         auth_kind: "{{ auth_kind }}"
@@ -22,7 +21,8 @@
         name: "{{ name_zonea }}"
         machine_type: "{{ machine_type }}"
         disks:
-          - boot: true
+          - auto_delete: true
+            boot: true
             initialize_params:
               source_image: "{{ image }}"
         network_interfaces:
@@ -30,7 +30,7 @@
               - name: External NAT
                 nat_ip: "{{ gcea_ip }}"
                 type: ONE_TO_ONE_NAT
-        zone: "{{ zonea }}"
+        zone: "{{ zone }}"
         project: "{{ project }}"
         service_account_file: "{{ credentials_file }}"
         auth_kind: "{{ auth_kind }}"
@@ -38,7 +38,7 @@
     - name: Create an IP address for second instance
       gcp_compute_address:
         name: "{{ name_zoneb }}-ip"
-        region: "{{ regionb }}"
+        region: "{{ region }}"
         project: "{{ project }}"
         service_account_file: "{{ credentials_file }}"
         auth_kind: "{{ auth_kind }}"
@@ -48,7 +48,8 @@
         name: "{{ name_zoneb }}"
         machine_type: "{{ machine_type }}"
         disks:
-          - boot: true
+          - auto_delete: true
+            boot: true
             initialize_params:
               source_image: "{{ image }}"
         network_interfaces:
@@ -56,7 +57,7 @@
               - name: External NAT
                 nat_ip: "{{ gceb_ip }}"
                 type: ONE_TO_ONE_NAT
-        zone: "{{ zoneb }}"
+        zone: "{{ zone }}"
         project: "{{ project }}"
         service_account_file: "{{ credentials_file }}"
         auth_kind: "{{ auth_kind }}"
