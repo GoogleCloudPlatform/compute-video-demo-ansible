@@ -9,10 +9,10 @@
   apt: pkg=apache2 state=present
 
 - name: Create custom index.html
-  template: src=index.html.j2 dest=/var/www/index.html
+  template: src=index.html.j2 dest=/var/www/html/index.html
 
 - name: Set file stats on index.html
-  file: path=/var/www/index.html owner=root group=root mode=0644
+  file: path=/var/www/html/index.html owner=root group=root mode=0644
 
 - name: Deploy modified apache conf
   copy: src=apache2.conf dest=/etc/apache2/apache2.conf
