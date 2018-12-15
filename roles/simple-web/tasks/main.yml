@@ -23,4 +23,4 @@
         src=/etc/apache2/mods-available/headers.load state=link
 
 - name: Re-load apache
-  service: name=apache2 state=reloaded
+  service: name=apache2 state=restarted
