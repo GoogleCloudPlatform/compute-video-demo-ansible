@@ -75,3 +75,7 @@
         project: "{{ project }}"
         auth_kind: "{{ auth_kind }}"
         service_account_file: "{{ credentials_file }}"
+    register: forwardingrule
+  post_tasks:
+    - debug:
+        msg: "Load balancer IP: {{ forwardingrule['IPAddress'] }}"

@@ -57,15 +57,16 @@ server. For this demo, it is assumed you have opted to use
 1. Install Ansible with the
 [running from source instructions](http://docs.ansible.com/intro_installation.html#running-from-source).
 
-1. Install libcloud.
+1. Install GCP module dependencies
+
     ```
-    sudo pip install apache-libcloud==0.20.1
+    pip install googleauth requests
     ```
+
 1. For the purposes of the demo, you can set a couple of environment variables
 to simplify your commands and SSH interactions.
 
     ```
-    export ANSIBLE_HOSTS=ansible_hosts
     export ANSIBLE_HOST_KEY_CHECKING=False
     ```
 
@@ -85,9 +86,8 @@ and the location of your JSON key (downloaded earlier) in the `credentials_file`
     ---
     # Google Compute Engine required authentication global variables
     # (Replace 'YOUR_PROJECT_ID' with the Project ID used in creating your GCP project.)
-    project_id: YOUR_PROJECT_ID
-    service_account_email: demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com
-    credentials_file: /home/ansible-user/demo-ansible.json
+    project: YOUR_PROJECT_ID
+    service_account_file: /path/to/your/json_key_file
     ```
 
 # Demo time!
@@ -104,7 +104,7 @@ should take roughly 2 minutes to create the new Compute Engine
 instances
 
 ```
-ansible-playbook site.yml
+ansible-playbook -i ansible_hosts site.yml
 ```
 
 1. The output from this command will display the public IP address associated
@@ -149,6 +149,10 @@ ansible-playbook clean-up.yml
 ## Troubleshooting
 
 * Make sure your GCP Project Name is set.  To set it, go to *API Manager &gt; Credentials &gt; OAuth consent screen*.
+
+* If Ansible keeps saying that requests or googleauth aren't installed, run `which python` to see which copy of the
+  Python interpreter you installed the dependencies to. In ansible_hosts, append `ansible_python_interpreter=PATH_FROM_WHICH_PYTHON`
+  to the `localhost` line
 
 
 ## Contributing
