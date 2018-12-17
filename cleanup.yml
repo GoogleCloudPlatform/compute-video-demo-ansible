@@ -53,3 +53,35 @@
           auth_kind: "{{ auth_kind }}"
           service_account_file: "{{ credentials_file }}"
           state: absent
+    - name: Delete the first instance
+      gcp_compute_instance:
+        name: "{{ name_zonea }}"
+        zone: "{{ zone }}"
+        project: "{{ project }}"
+        service_account_file: "{{ credentials_file }}"
+        auth_kind: "{{ auth_kind }}"
+        state: absent
+    - name: Delete the first address
+      gcp_compute_address:
+        name: "{{ name_zonea }}-ip"
+        region: "{{ region }}"
+        project: "{{ project }}"
+        service_account_file: "{{ credentials_file }}"
+        auth_kind: "{{ auth_kind }}"
+        state: absent
+    - name: Delete the second instance
+      gcp_compute_instance:
+        name: "{{ name_zoneb }}"
+        zone: "{{ zone }}"
+        project: "{{ project }}"
+        service_account_file: "{{ credentials_file }}"
+        auth_kind: "{{ auth_kind }}"
+        state: absent
+    - name: Delete the second address
+      gcp_compute_address:
+        name: "{{ name_zoneb }}-ip"
+        region: "{{ region }}"
+        project: "{{ project }}"
+        service_account_file: "{{ credentials_file }}"
+        auth_kind: "{{ auth_kind }}"
+        state: absent

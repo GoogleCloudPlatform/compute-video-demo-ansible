@@ -29,7 +29,7 @@
     gcp_compute_http_health_check:
         name: "httphealthcheck-globalforwardingrule"
         healthy_threshold: 10
-        port: 8080
+        port: 80
         timeout_sec: 2
         unhealthy_threshold: 5
         project: "{{ project }}"
@@ -68,6 +68,7 @@
     gcp_compute_global_forwarding_rule:
         name: "globalfowardingrule"
         ip_address: "{{ globaladdress.address }}"
+        load_balancing_scheme: "EXTERNAL"
         ip_protocol: TCP
         port_range: 80-80
         target: "{{ httpproxy.selfLink }}"
