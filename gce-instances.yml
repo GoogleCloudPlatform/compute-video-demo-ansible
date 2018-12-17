@@ -6,7 +6,7 @@
   vars_files:
     - gce_vars/auth
     - gce_vars/machines
-    - gce_vars/zonea
+    - gce_vars/zone
   tasks:
     - name: Create an IP address for first instance
       gcp_compute_address:

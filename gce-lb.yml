@@ -5,7 +5,7 @@
   gather_facts: False
   vars_files:
     - gce_vars/auth
-    - gce_vars/zonea
+    - gce_vars/zone
   tasks:
   - name: create a global address
     gcp_compute_global_address:

@@ -6,7 +6,7 @@
   vars_files:
     - gce_vars/auth
     - gce_vars/machines
-    - gce_vars/zonea
+    - gce_vars/zone
   tasks:
     - name: destroy the global forwarding rule
       gcp_compute_global_forwarding_rule:
