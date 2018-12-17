@@ -1,5 +1,5 @@
 [local]
-localhost ansible_connection=local ansible_python_interpreter=/usr/local/bin/python
+localhost ansible_connection=local
 
 [gce_instances]
 myinstance[1:4]
