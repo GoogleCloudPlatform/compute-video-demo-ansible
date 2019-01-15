@@ -6,39 +6,76 @@
   vars_files:
     - gce_vars/auth
     - gce_vars/machines
-    - gce_vars/zonea
-    - gce_vars/zoneb
+    - gce_vars/zone
   tasks:
-    - name: Bring up the instances in the first zone
-      gce:
-        instance_names: "{{ names_zonea }}"
+    - name: Create an IP address for first instance
+      gcp_compute_address:
+        name: "{{ name_zonea }}-ip"
+        region: "{{ region }}"
+        project: "{{ project }}"
+        service_account_file: "{{ credentials_file }}"
+        auth_kind: "{{ auth_kind }}"
+      register: gcea_ip
+    - name: Bring up the first instance in the first zone.
+      gcp_compute_instance:
+        name: "{{ name_zonea }}"
         machine_type: "{{ machine_type }}"
-        image: "{{ image }}"
-        zone: "{{ zonea }}"
-        project_id: "{{ project_id }}"
-        credentials_file: "{{ credentials_file }}"
-        service_account_email: "{{ service_account_email }}"
+        disks:
+          - auto_delete: true
+            boot: true
+            initialize_params:
+              source_image: "{{ image }}"
+        network_interfaces:
+          - access_configs:
+              - name: External NAT
+                nat_ip: "{{ gcea_ip }}"
+                type: ONE_TO_ONE_NAT
+        tags:
+          items:
+            - http-server
+            - https-server
+        zone: "{{ zone }}"
+        project: "{{ project }}"
+        service_account_file: "{{ credentials_file }}"
+        auth_kind: "{{ auth_kind }}"
       register: gcea
-    - name: Bring up the instances in the second zone
-      gce:
-        instance_names: "{{ names_zoneb }}"
+    - name: Create an IP address for second instance
+      gcp_compute_address:
+        name: "{{ name_zoneb }}-ip"
+        region: "{{ region }}"
+        project: "{{ project }}"
+        service_account_file: "{{ credentials_file }}"
+        auth_kind: "{{ auth_kind }}"
+      register: gceb_ip
+    - name: Bring up the instance in the second zone.
+      gcp_compute_instance:
+        name: "{{ name_zoneb }}"
         machine_type: "{{ machine_type }}"
-        image: "{{ image }}"
-        zone: "{{ zoneb }}"
-        project_id: "{{ project_id }}"
-        credentials_file: "{{ credentials_file }}"
-        service_account_email: "{{ service_account_email }}"
+        disks:
+          - auto_delete: true
+            boot: true
+            initialize_params:
+              source_image: "{{ image }}"
+        network_interfaces:
+          - access_configs:
+              - name: External NAT
+                nat_ip: "{{ gceb_ip }}"
+                type: ONE_TO_ONE_NAT
+        tags:
+          items:
+            - http-server
+            - https-server
+        zone: "{{ zone }}"
+        project: "{{ project }}"
+        service_account_file: "{{ credentials_file }}"
+        auth_kind: "{{ auth_kind }}"
       register: gceb
   post_tasks:
     - name: Wait for SSH for instances in first zone
-      wait_for: delay=1 host={{ item.public_ip }} port=22 state=started timeout=30
-      with_items: "{{ gcea.instance_data }}"
+      wait_for: delay=1 host={{ gcea_ip.address }} port=22 state=started timeout=30
     - name: Save host data for first zone
-      add_host: hostname={{ item.public_ip }} groupname=gce_instances_ips
-      with_items: "{{ gcea.instance_data }}"
+      add_host: hostname={{ gcea_ip.address }} groupname=gce_instances_ips
     - name: Wait for SSH for instances in second zone
-      wait_for: delay=1 host={{ item.public_ip }} port=22 state=started timeout=30
-      with_items: "{{ gceb.instance_data }}"
+      wait_for: delay=1 host={{ gceb_ip.address }} port=22 state=started timeout=30
     - name: Save host data for second zone
-      add_host: hostname={{ item.public_ip }} groupname=gce_instances_ips
-      with_items: "{{ gceb.instance_data }}"
+      add_host: hostname={{ gceb_ip.address }} groupname=gce_instances_ips
