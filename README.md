@@ -27,17 +27,25 @@ Platform customers.
 before you can create any virtual machines with Compute Engine. Find the menu icon at the top left, 
 then look for the *Billing* link in the navigation bar.
 
+1. Next you will want to install the
+[Cloud SDK](https://cloud.google.com/sdk/) and make sure you've
+successfully authenticated and set your default project as instructed.
+
 1. In order for `ansible` to create Compute Engine instances, you'll need a
 [Service Account](https://cloud.google.com/compute/docs/access/service-accounts#serviceaccount). 
 It's recommended that you create a new Service Account (don't use the default), called 'demo-ansible', for this demo.
 Make sure to create a new JSON formatted private key file for this Service Account. Also, note the *Email address* 
 of this Service Account (should be `demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com`) since 
 this will be required in the Ansible configuration files.
-
-1. Next you will want to install the
-[Cloud SDK](https://cloud.google.com/sdk/) and make sure you've
-successfully authenticated and set your default project as instructed.
-
+```
+Example creating instance and setting scopes/iam roles using cloud shell:
+    
+    $ gcloud compute instances create INSTANCE NAME --scopes demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com=cloud-platform
+    
+    $ gcloud projects add-iam-policy-binding SERVICE ACCOUNT --member serviceAccount:demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com --role roles/iam.serviceAccountActor
+    
+    $ gcloud projects add-iam-policy-binding SERVICE ACCOUNT --member serviceAccount:demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com --role roles/compute.instanceAdmin.v1
+```
 1. You will also need to make sure and set up SSH keys that will allow you to
 access your Compute Engine instances. You can either
 [manually generate the keys](https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys#createsshkeys) and
@@ -46,6 +54,10 @@ or you can use `gcloud compute ssh` to access an existing Compute Engine instanc
 and it will handle generating the keys and uploading them to the metadata
 server. For this demo, it is assumed you have opted to use
 `gcloud compute ssh` and your private key is located at `$HOME/.ssh/google_compute_engine`.
+```
+ Example of ssh via gcloud shell: $ gcloud compute ssh INSTANCE NAME
+```
+Refer to: `https://cloud.google.com/sdk/gcloud/#what_is_gcloud` for gcloud overview.
 
 ## Software
 
