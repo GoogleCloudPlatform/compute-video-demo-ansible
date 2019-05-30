@@ -30,9 +30,8 @@ then look for the *Billing* link in the navigation bar.
 1. In order for `ansible` to create Compute Engine instances, you'll need a
 [Service Account](https://cloud.google.com/compute/docs/access/service-accounts#serviceaccount). 
 It's recommended that you create a new Service Account (don't use the default), called 'demo-ansible', for this demo.
-Make sure to create a new JSON formatted private key file for this Service Account. Also, note the *Email address* 
-of this Service Account (should be `demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com`) since 
-this will be required in the Ansible configuration files.
+    1. Create a new JSON formatted private key file for this Service Account. Save it to your local machine in file `~/serviceaccounts/demo-ansible.json`.
+    1. Grant role _Compute Admin_ to the service account.
 
 1. Next you will want to install the
 [Cloud SDK](https://cloud.google.com/sdk/) and make sure you've
