@@ -1,5 +1,6 @@
 ---
 # compute-video-demo-ansible
-- include: gce-instances.yml
-- include: web.yml
-- include: gce-lb.yml
+
+- import_playbook: gce-instances.yml
+- import_playbook: web.yml
+- import_playbook: gce-lb.yml
