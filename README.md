@@ -79,9 +79,8 @@ and demo files.
     ```
 
 1. Edit the `gce_vars/auth` file and specify your Project ID as the
-`project` value. Note that the value of `credentials_file` is the name of the
-service account JSON file you saved earlier.
-
+`project` value. Note that the value of `credentials_file` is already set to the
+name of the service account JSON file you saved earlier.
     ```
     ---
     # Google Compute Engine required authentication global variables
@@ -145,7 +144,7 @@ demo Compute Engine resources. The following command can be used to destroy
 all of the resources created for this demo.
 
 ```
-ansible-playbook clean-up.yml
+ansible-playbook cleanup.yml
 ```
 
 ## Troubleshooting
