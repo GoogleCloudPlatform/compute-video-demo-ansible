@@ -30,9 +30,8 @@ then look for the *Billing* link in the navigation bar.
 1. In order for `ansible` to create Compute Engine instances, you'll need a
 [Service Account](https://cloud.google.com/compute/docs/access/service-accounts#serviceaccount). 
 It's recommended that you create a new Service Account (don't use the default), called 'demo-ansible', for this demo.
-Make sure to create a new JSON formatted private key file for this Service Account. Also, note the *Email address* 
-of this Service Account (should be `demo-ansible@YOUR_PROJECT_ID.iam.gserviceaccount.com`) since 
-this will be required in the Ansible configuration files.
+    1. Create a new JSON formatted private key file for this Service Account. Save it to your local machine in file `~/serviceaccounts/demo-ansible.json`.
+    1. Grant role _Compute Admin_ to the service account.
 
 1. Next you will want to install the
 [Cloud SDK](https://cloud.google.com/sdk/) and make sure you've
@@ -79,15 +78,18 @@ and demo files.
     git clone https://github.com/GoogleCloudPlatform/compute-video-demo-ansible
     ```
 
-1. Edit the `gce_vars/auth` file and specify your Project ID in the
-`project_id` variable, Service Account email address in the `service_account_email` variable,
-and the location of your JSON key (downloaded earlier) in the `credentials_file` variable.
+1. Edit the `gce_vars/auth` file and specify your Project ID as the
+`project` value. Note that the value of `credentials_file` is the name of the
+service account JSON file you saved earlier.
+
     ```
     ---
     # Google Compute Engine required authentication global variables
-    # (Replace 'YOUR_PROJECT_ID' with the Project ID used in creating your GCP project.)
-    project: YOUR_PROJECT_ID
-    service_account_file: /path/to/your/json_key_file
+    # (Set the value of `project` to the Project ID of your GCP project.)
+    project: team-agent
+    credentials_file: ~/serviceaccounts/demo-ansible.json
+    auth_kind: serviceaccount
+
     ```
 
 # Demo time!
@@ -135,10 +137,10 @@ of modules and instructions.
 ## Cleaning up
 
 When you're done with the demo, make sure to tear down all of your
-instances and clean-up. You will get charged for this usage and you will
+instances and cleanup. You will get charged for this usage and you will
 accumulate additional charges if you do not remove these resources.
 
-Fortunately, you can use the `clean-up.yml` playbook for destroying these
+Fortunately, you can use the `cleanup.yml` playbook to destroy these
 demo Compute Engine resources. The following command can be used to destroy
 all of the resources created for this demo.
 
