@@ -78,15 +78,18 @@ and demo files.
     git clone https://github.com/GoogleCloudPlatform/compute-video-demo-ansible
     ```
 
-1. Edit the `gce_vars/auth` file and specify your Project ID in the
-`project_id` variable, Service Account email address in the `service_account_email` variable,
-and the location of your JSON key (downloaded earlier) in the `credentials_file` variable.
+1. Edit the `gce_vars/auth` file and specify your Project ID as the
+`project` value. Note that the value of `credentials_file` is the name of the
+service account JSON file you saved earlier.
+
     ```
     ---
     # Google Compute Engine required authentication global variables
-    # (Replace 'YOUR_PROJECT_ID' with the Project ID used in creating your GCP project.)
-    project: YOUR_PROJECT_ID
-    service_account_file: /path/to/your/json_key_file
+    # (Set the value of `project` to the Project ID of your GCP project.)
+    project: team-agent
+    credentials_file: ~/serviceaccounts/demo-ansible.json
+    auth_kind: serviceaccount
+
     ```
 
 # Demo time!
@@ -134,10 +137,10 @@ of modules and instructions.
 ## Cleaning up
 
 When you're done with the demo, make sure to tear down all of your
-instances and clean-up. You will get charged for this usage and you will
+instances and cleanup. You will get charged for this usage and you will
 accumulate additional charges if you do not remove these resources.
 
-Fortunately, you can use the `clean-up.yml` playbook for destroying these
+Fortunately, you can use the `cleanup.yml` playbook to destroy these
 demo Compute Engine resources. The following command can be used to destroy
 all of the resources created for this demo.
 
